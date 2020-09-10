@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item
+        android:id="@+id/todoListFragment"
+        android:icon="@drawable/ic_todo_list"
+        android:title="@string/title_todoList" />
+
+    <item
+        android:id="@+id/doneTodoListFragment"
+        android:icon="@drawable/ic_create"
+        android:title="@string/title_doneTodoList" />
+
+    <item
+        android:id="@+id/categoriesFragment"
+        android:icon="@drawable/ic_category"
+        android:title="@string/title_categories" />
+
+
+</menu>

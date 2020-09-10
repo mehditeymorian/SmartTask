@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/layout_vertic_space"
+        android:paddingStart="@dimen/layout_horizon_space"
+        android:paddingEnd="@dimen/layout_horizon_space"
+        android:backgroundTint="@color/dayNight_background"
+        tools:context=".pages.DoneTodoListFragment">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@string/title_doneTodoList"
+            style="@style/Title"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/layout_vertic_element_space"
+            android:paddingBottom="@dimen/layout_vertic_space"
+            android:clipToPadding="false"
+            tools:listitem="@layout/row_todo"/>
+    </LinearLayout>
+</layout>

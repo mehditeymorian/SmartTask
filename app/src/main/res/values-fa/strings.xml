@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">تسک باهوش</string>
+    <string name="title_deleteCategory">حذف دسته</string>
+    <string name="desc_deleteCategory">تمام تسک های زیرمجموعه همراه با دسته پاک میشوند. آیا مطمئن هستید؟</string>
+    <string name="action_yes">بله</string>
+    <string name="action_no">خیر</string>
+    <string name="title_priority">اولویت</string>
+    <string name="title_noDeadline">بدون ضرب الاجل</string>
+    <string name="title_deadline">ضرب الاجل</string>
+    <string name="title_noDescription">بدون توضیحات</string>
+    <string name="title_createTodoHint">چیکار کنیم؟</string>
+    <string name="title_description">توضیحات</string>
+    <string name="title_title">عنوان</string>
+    <string name="title_categories">دسته بندی ها</string>
+    <string name="title_todoList">لیست کارها</string>
+    <string name="action_add">اضافه کردن</string>
+    <string name="title_defaultCategory">اصلی</string>
+    <string name="title_doneTodoList">تمام شده</string>
+    <string name="title_category_menu">منو دسته</string>
+    <string name="action_delete">حذف</string>
+    <string name="action_edit">تغییر</string>
+    <string name="action_done">تغییر به حالت انجام</string>
+    <string name="title_priority_high" >بالا</string>
+    <string name="title_priority_normal" >معمولی</string>
+    <string name="title_priority_low" >کم</string>
+    <string name="msg_productivity">چند کار جدید اضافه کن تا بازده ات را بالا ببری 💪</string>
+    <string name="msg_splash">همیشه بیشتر از انتظار بازده داشته باش :)</string>
+    <string name="title_daySymbol">روز</string>
+    <string name="title_no_doneDate">انجام نشده</string>
+
+
+</resources>

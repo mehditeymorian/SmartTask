@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ir.timurid.smarttask.viewModel.AddCategoryVM" />
+
+        <import type="ir.timurid.smarttask.utils.ColorUtils" />
+
+        <variable
+            name="parent"
+            type="ir.timurid.smarttask.pages.AddCategoryModal" />
+
+        <variable
+            name="viewModel"
+            type="ir.timurid.smarttask.viewModel.AddCategoryVM" />
+    </data>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/titleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/dayNight_background"
+        app:boxBackgroundColor="@android:color/transparent"
+        app:counterEnabled="true"
+        app:counterMaxLength="@{viewModel.TITLE_MAX_LENGTH}"
+        app:endIconDrawable="@drawable/ic_create"
+        app:endIconMode="custom"
+        app:endIconTint="@color/colorPrimary"
+        app:helperTextTextColor="@android:color/holo_red_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:startIconDrawable="@drawable/ic_category"
+        app:startIconTintList="@{ColorUtils.getColorStateList(viewModel.colorField)}"
+        tools:context=".pages.AddCategoryModal">
+        <!--   todo:         app:endIconVisible="@{AddCategoryVM.isTitleAcceptable(titleInput.text)}"-->
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titleInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/title_title"
+            android:singleLine="true"
+            android:text="@={viewModel.titleField}" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</layout>

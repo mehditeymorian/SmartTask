@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">Smart Task</string>
+    <string name="title_deleteCategory">Delete The Category</string>
+    <string name="desc_deleteCategory">All subset Todos will be deleted too; Are you sure?</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    <string name="title_priority">Priority</string>
+    <string name="title_noDeadline">No Deadline</string>
+    <string name="title_deadline">Deadline</string>
+    <string name="title_noDescription">No Description</string>
+    <string name="title_createTodoHint">What To Do?</string>
+    <string name="title_description">Description</string>
+    <string name="title_title">Title</string>
+    <string name="title_categories">Categories</string>
+    <string name="title_todoList">TodoList</string>
+    <string name="action_add">Add</string>
+    <string name="title_defaultCategory">Main</string>
+    <string name="title_doneTodoList">Done Todos</string>
+    <string name="title_category_menu">Category Menu</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_done">Done</string>
+    <string name="title_priority_high">High</string>
+    <string name="title_priority_normal">Normal</string>
+    <string name="title_priority_low">Low</string>
+    <string name="msg_productivity">Add New Tasks To Boost Your Productivity 💪🏻</string>
+    <string name="msg_splash">Always Try To Deliver More.</string>
+    <string name="title_daySymbol">Day</string>
+    <string name="title_no_doneDate">Not Done</string>
+
+    <string-array name="todoListOptions">
+        <item>@string/action_delete</item>
+        <item>@string/action_edit</item>
+        <item>@string/action_done</item>
+    </string-array>
+
+    <string-array name="priorities">
+        <item>@string/title_priority_high</item>
+        <item>@string/title_priority_normal</item>
+        <item>@string/title_priority_low</item>
+    </string-array>
+
+    <string-array name="category_menu">
+        <item>@string/action_edit</item>
+        <item>@string/action_delete</item>
+    </string-array>
+
+
+
+</resources>

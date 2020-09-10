@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="ir.timurid.smarttask.utils.DateUtils" />
+        <variable
+            name="parent"
+            type="ir.timurid.smarttask.pages.AddTodoBottomSheet" />
+
+        <variable
+            name="viewModel"
+            type="ir.timurid.smarttask.viewModel.AddTodoVM" />
+
+        <variable
+            name="prioritiesRes"
+            type="String[]" />
+
+
+        <import type="ir.timurid.smarttask.utils.ColorUtils" />
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout"
+        app:behavior_peekHeight="125dp"
+        app:behavior_hideable="true"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:background="@color/dayNight_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- todo: disable create button if todo title is empty -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/titleLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/ic_dismiss"
+            app:startIconTint="@android:color/holo_red_light"
+            app:startIconVisible="@{viewModel.isEditMode}"
+            app:endIconDrawable="@drawable/ic_create"
+            app:endIconMode="custom"
+            app:endIconTint="@color/colorPrimary"
+            app:boxBackgroundColor="@color/dayNight_foreground"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/titleInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.titleField}"
+                android:hint="@string/title_createTodoHint"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <HorizontalScrollView
+            android:id="@+id/chipGroupLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleLayout">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/bottomChipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/deadlineChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{parent::onDeadlineChipClick}"
+                android:text='@{DateUtils.dateToStr(viewModel.deadlineField) ?? @string/title_deadline}'
+                app:chipBackgroundColor="@color/dayNight_foreground"
+                app:chipIcon="@drawable/ic_deadline"
+                app:closeIconVisible="@{viewModel.deadlineField != null}"
+                android:textAppearance="@style/Chip.TextAppearance"
+                tools:text="@string/title_deadline"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/priorityChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{parent::onPriorityChipClick}"
+                android:text='@{@string/title_priority + " " + prioritiesRes[viewModel.priorityField]}'
+                app:chipBackgroundColor="@color/dayNight_foreground"
+                app:chipIcon="@drawable/ic_priority_low"
+                app:priorityLevel="@{viewModel.priorityField}"
+                android:textAppearance="@style/Chip.TextAppearance"
+                tools:text="@string/title_priority"/>
+
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/categoryChip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{parent::onCategoryChipClick}"
+                android:text='@{viewModel.categoryField.title}'
+                app:chipBackgroundColor="@color/dayNight_foreground"
+                app:chipIcon="@drawable/ic_category"
+                app:chipIconTint="@{ColorUtils.getColorStateList(viewModel.categoryField.color)}"
+                android:textAppearance="@style/Chip.TextAppearance"
+                tools:text="Category" />
+        </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:boxBackgroundMode="outline"
+            app:boxBackgroundColor="@color/dayNight_foreground"
+            app:hintTextAppearance="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chipGroupLayout"
+            app:startIconDrawable="@drawable/ic_description">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/descriptionInput"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top|start"
+                android:backgroundTint="@color/dayNight_foreground"
+                android:hint="@string/title_description"
+                android:minHeight="200dp"
+                android:text="@={viewModel.descriptionField}"
+                android:textColor="@color/dayNight_primaryText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

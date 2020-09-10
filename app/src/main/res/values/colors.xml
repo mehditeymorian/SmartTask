@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EA</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#7C4DFF</color>
+
+    <color name="colorPriorityHigh">#311B92</color>
+    <color name="colorPriorityNormal">#6200EA</color>
+    <color name="colorPriorityLow">#7C4DFF</color>
+
+    <color name="dayNight_primaryText">#212121</color>
+    <color name="dayNight_secondaryText">#757575</color>
+    <color name="dayNight_background">#F5F5F5</color>
+    <color name="dayNight_foreground">#F5F5F5</color>
+
+
+    <array name="prioritiesColors">
+        <item>@color/colorPriorityHigh</item>
+        <item>@color/colorPriorityNormal</item>
+        <item>@color/colorPriorityLow</item>
+    </array>
+
+    <string-array name="category_colors">
+        <item>#D50000</item>
+        <item>#C51162</item>
+        <item>#AA00FF</item>
+        <item>#6200EA</item>
+        <item>#304FFE</item>
+        <item>#2962FF</item>
+        <item>#0091EA</item>
+        <item>#00B8D4</item>
+        <item>#00BFA5</item>
+        <item>#00C853</item>
+        <item>#64DD17</item>
+        <item>#AEEA00</item>
+        <item>#FFD600</item>
+        <item>#FFAB00</item>
+        <item>#FF6D00</item>
+        <item>#DD2C00</item>
+        <item>#3E2723</item>
+        <item>#212121</item>
+        <item>#263238</item>
+    </string-array>
+</resources>

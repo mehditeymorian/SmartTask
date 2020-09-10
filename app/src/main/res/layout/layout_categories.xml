@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="parent"
+            type="ir.timurid.smarttask.pages.CategoriesModal" />
+
+        <variable
+            name="isListEmpty"
+            type="Boolean" />
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/layout_horizon_space"
+        android:paddingTop="@dimen/layout_vertic_space"
+        android:paddingEnd="@dimen/layout_horizon_space"
+        android:backgroundTint="@color/dayNight_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/layout_vertic_element_space">
+
+            <TextView
+                style="@style/Title"
+                android:id="@+id/title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_categories"/>
+
+            <Button
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:id="@+id/addBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{parent::onAddCategoryBtnClick}"
+                android:text="@string/action_add"
+                android:backgroundTint="@color/dayNight_foreground"/>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/categoriesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingTop="@dimen/layout_vertic_element_space"
+            android:paddingBottom="@dimen/layout_vertic_space"
+            android:clipToPadding="false"/>
+        
+
+    </LinearLayout>
+</layout>
