@@ -14,19 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.model.Todo;
+import ir.timurid.smarttask.pages.TodoListFragment;
 import ir.timurid.smarttask.viewModel.TodoListVM;
 
 public class OnTodoListSwipe extends ItemTouchHelper.SimpleCallback {
-    private TodoListVM viewModel;
+    private TodoListFragment parent;
     private ColorDrawable background;
     private Drawable icon;
 
 
-    public OnTodoListSwipe(RecyclerView recyclerView, TodoListVM viewModel) {
+    public OnTodoListSwipe(TodoListFragment parent) {
         super(0, ItemTouchHelper.END);
-        this.viewModel = viewModel;
+        this.parent = parent;
 
-        Context context = recyclerView.getContext();
+
+        Context context = parent.requireContext();
 
         icon = ContextCompat.getDrawable(context, R.drawable.ic_done);
         icon.setTint(Color.WHITE);
@@ -34,7 +36,7 @@ public class OnTodoListSwipe extends ItemTouchHelper.SimpleCallback {
         background = new ColorDrawable(context.getResources().getColor(R.color.colorPrimary, null));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(this);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper.attachToRecyclerView(parent.getBinding().todoListRecyclerView);
     }
 
     @Override
@@ -44,8 +46,10 @@ public class OnTodoListSwipe extends ItemTouchHelper.SimpleCallback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-        Todo todo = ((TodoAdapter.ViewHolder) viewHolder).getBinding().getTodo();
-        viewModel.setTodoDone(todo);
+        TodoAdapter.ViewHolder holder = (TodoAdapter.ViewHolder) viewHolder;
+        Todo todo = holder.getBinding().getTodo();
+        int position = holder.getAdapterPosition();
+        parent.doneOption(todo,position);
     }
 
     @Override

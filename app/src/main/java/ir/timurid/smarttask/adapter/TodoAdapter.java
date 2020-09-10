@@ -10,6 +10,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.timurid.smarttask.databinding.RowTodoBinding;
 import ir.timurid.smarttask.extra.BindingAdapters;
 import ir.timurid.smarttask.model.Todo;
@@ -55,7 +58,7 @@ public class TodoAdapter extends ListAdapter<Todo, TodoAdapter.ViewHolder> {
             this.binding = binding;
             binding.getRoot().setOnClickListener(v -> onTodoItemListener.onTodoClick(binding.getTodo()));
             binding.getRoot().setOnLongClickListener(v -> {
-                onTodoItemListener.onTodoOptionsClick(binding.getTodo());
+                onTodoItemListener.onTodoOptionsClick(binding.getTodo(),getAdapterPosition());
                 return true;
             });
         }
@@ -83,8 +86,23 @@ public class TodoAdapter extends ListAdapter<Todo, TodoAdapter.ViewHolder> {
 
         void onTodoClick(Todo todo);
 
-        void onTodoOptionsClick(Todo todo);
+        void onTodoOptionsClick(Todo todo, int position);
 
+    }
+
+
+    public void deleteItemAt(int position) {
+        // TODO: 9/10/2020 double check for any huge calculation
+        List<Todo> list = new ArrayList<>(getCurrentList());
+        list.remove(position);
+        submitList(list);
+    }
+
+    public void addItemAt(Todo todo, int position) {
+        // TODO: 9/10/2020 double check for any huge calculation
+        List<Todo> list = new ArrayList<>(getCurrentList());
+        list.add(position,todo);
+        submitList(list);
     }
 
 }

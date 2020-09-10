@@ -29,6 +29,9 @@
     <string name="msg_splash">همیشه بیشتر از انتظار بازده داشته باش :)</string>
     <string name="title_daySymbol">روز</string>
     <string name="title_no_doneDate">انجام نشده</string>
+    <string name="action_undo">واگرد</string>
+    <string name="title_deleted">حذف شده</string>
+    <string name="title_done">انجام شده</string>
 
 
 </resources>

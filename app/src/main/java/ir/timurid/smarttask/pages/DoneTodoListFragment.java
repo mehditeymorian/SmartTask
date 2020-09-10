@@ -59,7 +59,7 @@ public class DoneTodoListFragment extends Fragment implements TodoAdapter.OnTodo
     }
 
     @Override
-    public void onTodoOptionsClick(Todo todo) {
+    public void onTodoOptionsClick(Todo todo, int position) {
 
     }
 }

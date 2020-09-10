@@ -27,6 +27,9 @@
     <string name="msg_splash">Always Try To Deliver More.</string>
     <string name="title_daySymbol">Day</string>
     <string name="title_no_doneDate">Not Done</string>
+    <string name="action_undo">Undo</string>
+    <string name="title_deleted">Deleted</string>
+    <string name="title_done">Archived</string>
 
     <string-array name="todoListOptions">
         <item>@string/action_delete</item>
