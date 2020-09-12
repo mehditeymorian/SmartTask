@@ -18,7 +18,7 @@ public class BindingAdapters {
                     R.drawable.ic_priority_low};
 
 
-    @BindingAdapter("app:priorityLevel")
+    @BindingAdapter("priorityLevel")
     public static void setPriorityLevel(Chip chip, int level) {
         @DrawableRes int icon = prioritiesIconsRes[level];
 

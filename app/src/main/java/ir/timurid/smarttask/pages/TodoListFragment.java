@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import io.reactivex.Observable;
@@ -76,6 +77,7 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
 
 
         new OnTodoListSwipe(this);
+
     }
 
 
@@ -105,7 +107,9 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
             }
         };
 
-        new AlertDialog.Builder(requireContext())
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.title_todoOptions)
                 .setItems(R.array.todoListOptions, onOptionsSwitch)
                 .show();
     }
@@ -122,13 +126,17 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
             subscribe.dispose();
         };
 
-        Snackbar.make(binding.getRoot(), R.string.title_done,OPTION_SNAKE_BAR_DELAY)
+        MainActivity mainActivity = MainActivity.get(this);
+        View coordinator = mainActivity.binding.coordinatorLayout;
+
+        Snackbar.make(coordinator, R.string.title_done,OPTION_SNAKE_BAR_DELAY)
+                .setAnchorView(mainActivity.binding.addTodoBtn)
                 .setAction(R.string.action_undo, onUndoBtnClick).show();
     }
 
     private void editOption(Todo todo) {
         addTodoVM.setEditTodo(todo);
-        ((MainActivity) requireActivity()).showAddTodoLayout(null);
+        MainActivity.get(this).showAddTodoLayout(null);
 
     }
 
@@ -144,7 +152,11 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
             subscribe.dispose();
         };
 
-        Snackbar.make(binding.getRoot(), R.string.title_deleted,OPTION_SNAKE_BAR_DELAY)
+        MainActivity mainActivity = MainActivity.get(this);
+        View coordinator = mainActivity.binding.coordinatorLayout;
+
+        Snackbar.make(coordinator, R.string.title_deleted,OPTION_SNAKE_BAR_DELAY)
+                .setAnchorView(mainActivity.binding.addTodoBtn)
                 .setAction(R.string.action_undo, onUndoBtnClick).show();
     }
     //endregion

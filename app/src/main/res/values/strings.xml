@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Smart Task</string>
-    <string name="title_deleteCategory">Delete The Category</string>
-    <string name="desc_deleteCategory">All subset Todos will be deleted too; Are you sure?</string>
+    <string name="title_deleteCategory">Delete Category</string>
+    <string name="desc_deleteCategory">This category and All subset Todos will be deleted from your list.</string>
+    <string name="title_deleteTodo">Delete Todo</string>
+    <string name="desc_deleteTodo">This todo will be delete from your list.</string>
     <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
     <string name="title_priority">Priority</string>
@@ -16,7 +18,7 @@
     <string name="action_add">Add</string>
     <string name="title_defaultCategory">Main</string>
     <string name="title_doneTodoList">Done Todos</string>
-    <string name="title_category_menu">Category Menu</string>
+    <string name="title_categoryOptions">Category Options</string>
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
     <string name="action_done">Done</string>
@@ -29,7 +31,12 @@
     <string name="title_no_doneDate">Not Done</string>
     <string name="action_undo">Undo</string>
     <string name="title_deleted">Deleted</string>
-    <string name="title_done">Archived</string>
+    <string name="title_done">Done</string>
+    <string name="title_todoOptions">Todo Options</string>
+    <string name="title_passed">Passed</string>
+    <string name="title_today">Today</string>
+    <string name="title_tomorrow">Tomorrow</string>
+
 
     <string-array name="todoListOptions">
         <item>@string/action_delete</item>
@@ -44,10 +51,11 @@
     </string-array>
 
     <string-array name="category_menu">
-        <item>@string/action_edit</item>
         <item>@string/action_delete</item>
+        <item>@string/action_edit</item>
     </string-array>
-
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package ir.timurid.smarttask.adapter;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -46,7 +47,8 @@ public class ColorPickerAdapter extends ListAdapter<String, ColorPickerAdapter.V
         }
 
         public void bind(String color) {
-            binding.setColor(ColorUtils.parseColor(color));
+            ColorDrawable colorDrawable = new ColorDrawable(ColorUtils.parseColor(color));
+            binding.imageView.setImageDrawable(colorDrawable);
             binding.executePendingBindings();
         }
     }

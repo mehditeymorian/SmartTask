@@ -73,7 +73,7 @@
                 style="@style/MaterialImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{()-> viewModel.deleteTodo()}"
+                android:onClick="@{parent::onDeleteBtn}"
                 app:icon="@drawable/ic_delete"
                 app:iconTint="@android:color/darker_gray" />
         </LinearLayout>

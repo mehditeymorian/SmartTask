@@ -1,6 +1,7 @@
 package ir.timurid.smarttask.pages;
 
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,12 +54,19 @@ public class AddCategoryModal extends BottomSheetDialogFragment {
         viewModel.setEditBundle(getArguments());
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        binding.titleInput.requestFocus();
+
+        Editable titleVal = binding.titleInput.getText();
+        binding.titleInput.setSelection(titleVal != null ? titleVal.length() : 0);
+    }
 
     @Override
     public void onResume() {
         super.onResume();
-        binding.titleInput.requestFocus();
-
         Delay.forTime(250).andThen(() -> KeyboardHelper.showKeyboard(getContext(), binding.titleInput));
     }
 

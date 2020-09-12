@@ -43,7 +43,8 @@
         <dialog
             android:id="@+id/colorPickerModal"
             android:name="ir.timurid.smarttask.pages.ColorPickerModal"
-            android:label="ColorPickerModal" />
+            android:label="ColorPickerModal"
+            tools:layout="@layout/layout_color_picker_modal"/>
     </navigation>
     <fragment
         android:id="@+id/doneTodoListFragment"

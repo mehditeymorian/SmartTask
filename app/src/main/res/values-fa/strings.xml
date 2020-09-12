@@ -3,7 +3,9 @@
 
     <string name="app_name">تسک باهوش</string>
     <string name="title_deleteCategory">حذف دسته</string>
-    <string name="desc_deleteCategory">تمام تسک های زیرمجموعه همراه با دسته پاک میشوند. آیا مطمئن هستید؟</string>
+    <string name="desc_deleteCategory">این دسته و تمام تسک های زیرمجموعه از لیست شما پاک خواهند شد.</string>
+    <string name="title_deleteTodo">حذف کار</string>
+    <string name="desc_deleteTodo">این از لیست شما حذف خواهد شد.</string>
     <string name="action_yes">بله</string>
     <string name="action_no">خیر</string>
     <string name="title_priority">اولویت</string>
@@ -18,7 +20,7 @@
     <string name="action_add">اضافه کردن</string>
     <string name="title_defaultCategory">اصلی</string>
     <string name="title_doneTodoList">تمام شده</string>
-    <string name="title_category_menu">منو دسته</string>
+    <string name="title_categoryOptions">آپشن های دسته</string>
     <string name="action_delete">حذف</string>
     <string name="action_edit">تغییر</string>
     <string name="action_done">تغییر به حالت انجام</string>
@@ -32,6 +34,10 @@
     <string name="action_undo">واگرد</string>
     <string name="title_deleted">حذف شده</string>
     <string name="title_done">انجام شده</string>
+    <string name="title_todoOptions">آپشن های کار</string>
+    <string name="title_passed">گذشته</string>
+    <string name="title_today">امروز</string>
+    <string name="title_tomorrow">فردا</string>
 
 
 </resources>

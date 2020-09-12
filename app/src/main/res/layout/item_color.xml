@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable
-            name="color"
-            type="Integer" />
+
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearance="@style/ShapeAppearance.SmallComponent"
+        android:id="@+id/imageView"
         android:layout_width="64dp"
         android:layout_height="64dp"
-        android:background="@{color}"
         android:layout_margin="8dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.imageview.ShapeableImageView>
 </layout>

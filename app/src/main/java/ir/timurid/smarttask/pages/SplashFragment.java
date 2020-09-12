@@ -30,8 +30,8 @@ public class SplashFragment extends Fragment {
     public void onStart() {
         super.onStart();
         Delay.forTime(2000).andThen(() -> {
-            NavOptions.Builder options = new NavOptions.Builder()
-                    .setPopUpTo(R.id.splashFragment,true);
+            NavOptions.Builder options = new NavOptions.Builder();
+            options.setPopUpTo(R.id.splashFragment,true);
 
             NavigationManager.getNavController(this).navigate(R.id.navigation_splash_todoList, null,options.build());
         });

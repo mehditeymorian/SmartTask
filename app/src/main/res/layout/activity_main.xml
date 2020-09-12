@@ -18,18 +18,13 @@
         android:backgroundTint="@color/dayNight_background"
         tools:context=".MainActivity">
 
-        <LinearLayout
-            android:id="@+id/contentLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-        <!-- todo: check out FragmentContainerView -->
-            <!-- todo: app crash in switching between light and dark theme -->
+
+
         <fragment
             android:id="@+id/activity_fragmentHolder"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main" />
@@ -38,28 +33,34 @@
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:menu="@menu/navigation_menu"
             app:labelVisibilityMode="selected"
             app:backgroundTint="@color/dayNight_foreground"/>
-        </LinearLayout>
 
 
-        <include
-            android:id="@+id/addTodoLayout"
-            layout="@layout/layout_add_todo" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/addTodoBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="76dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="70dp"
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{parent::showAddTodoLayout}"
             android:src="@drawable/ic_add"
-            android:layout_gravity="bottom|end"
-            app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
+            android:tint="@color/dayNight_foreground"
+            app:backgroundTint="@color/colorPrimary"
+            app:layout_anchorGravity="end|bottom"
+            app:layout_anchor="@id/bottomNavigationView"
+            app:layout_behavior="ir.timurid.smarttask.extra.FloatingButtonOnScrollBehavior" />
+
+        <include
+            android:id="@+id/addTodoLayout"
+            layout="@layout/layout_add_todo" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

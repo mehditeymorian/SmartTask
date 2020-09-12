@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.adapter.CategoriesAdapter;
@@ -61,7 +60,8 @@ public class CategoriesModal extends BottomSheetDialogFragment implements Catego
         binding.setParent(this);
         binding.setIsListEmpty(true);
 
-        binding.categoriesRecyclerView.setLayoutManager(getRecyclerViewLayoutManager());
+        GridLayoutManager layoutManager = new GridLayoutManager(requireContext(), 2);
+        binding.categoriesRecyclerView.setLayoutManager(layoutManager);
         binding.categoriesRecyclerView.setAdapter(categoriesAdapter);
 
         viewModel.getCategories().observe(this, list -> {
@@ -78,11 +78,11 @@ public class CategoriesModal extends BottomSheetDialogFragment implements Catego
     // on categories click in the recyclerView
     @Override
     public void onItemClick(Category category) {
-        if (isSelectionModeActive()) {
-            addTodoViewModel.getCategoryField().set(category);
-            NavigationManager.popBackFrom(this);
-        } else showItemMenuDialog(category);
+        if (isSelectionModeActive()) selectCategory(category);
+        else showItemMenuDialog(category);
     }
+
+
 
     private void showItemMenuDialog(Category category) {
         if (category.getCategoryId() == DEFAULT_CATEGORY_ID)
@@ -91,16 +91,17 @@ public class CategoriesModal extends BottomSheetDialogFragment implements Catego
 
         DialogInterface.OnClickListener onMenuItemClick = (dialog, which) -> {
             switch (which) {
-                case 0: // EDIT
-                    editCategory(category);
-                    break;
-                case 1: // DELETE
+                case 0: // DELETE
                     deleteCategory(category);
+                    break;
+                case 1: // EDIT
+                    editCategory(category);
                     break;
             }
         };
-        new AlertDialog.Builder(getContext())
-                .setTitle(R.string.title_category_menu)
+
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.title_categoryOptions)
                 .setItems(R.array.category_menu, onMenuItemClick)
                 .show();
     }
@@ -116,18 +117,18 @@ public class CategoriesModal extends BottomSheetDialogFragment implements Catego
 
     private void deleteCategory(Category category) {
 
-        new AlertDialog.Builder(requireContext())
+        new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.title_deleteCategory)
                 .setMessage(R.string.desc_deleteCategory)
-                .setPositiveButton(R.string.action_yes, (dialog, which) -> viewModel.deleteCategory(category))
+                .setPositiveButton(R.string.action_delete, (dialog, which) -> viewModel.deleteCategory(category))
                 .setNegativeButton(R.string.action_no, (dialog, which) -> dialog.dismiss())
                 .show();
     }
 
-    public RecyclerView.LayoutManager getRecyclerViewLayoutManager() {
-        return new GridLayoutManager(requireContext(), 2);
+    private void selectCategory(Category category) {
+        addTodoViewModel.getCategoryField().set(category);
+        NavigationManager.popBackFrom(this);
     }
-
 
     private boolean isSelectionModeActive() {
         Bundle arguments = getArguments();

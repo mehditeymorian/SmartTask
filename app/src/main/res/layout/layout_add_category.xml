@@ -26,18 +26,16 @@
         android:backgroundTint="@color/dayNight_background"
         app:boxBackgroundColor="@android:color/transparent"
         app:counterEnabled="true"
-        app:counterMaxLength="@{viewModel.TITLE_MAX_LENGTH}"
+        app:counterMaxLength="@{AddCategoryVM.TITLE_MAX_LENGTH}"
         app:endIconDrawable="@drawable/ic_create"
         app:endIconMode="custom"
+        app:endIconVisible="@{viewModel.titleField.length() > 0 &amp;&amp; viewModel.titleField.length() &lt;= AddCategoryVM.TITLE_MAX_LENGTH}"
         app:endIconTint="@color/colorPrimary"
         app:helperTextTextColor="@android:color/holo_red_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:startIconDrawable="@drawable/ic_category"
         app:startIconTintList="@{ColorUtils.getColorStateList(viewModel.colorField)}"
         tools:context=".pages.AddCategoryModal">
-        <!--   todo:         app:endIconVisible="@{AddCategoryVM.isTitleAcceptable(titleInput.text)}"-->
+        <!--todo app:endIconVisible="@{AddCategoryVM.isTitleAcceptable(titleInput.text)}" -->
 
 
         <com.google.android.material.textfield.TextInputEditText

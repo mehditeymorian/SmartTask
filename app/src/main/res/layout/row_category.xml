@@ -44,6 +44,9 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@{title}"
+                android:requiresFadingEdge="horizontal"
+                android:ellipsize="none"
+                android:singleLine="true"
                 android:textColor="@color/dayNight_primaryText" />
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
 
         NavigationManager.getNavController(this).addOnDestinationChangedListener(this::onDestinationChanged);
+
+
     }
 
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() != R.id.categoriesFragment)
             options.setPopUpTo(destinationId, inclusive);
 
-        NavigationManager.getNavController(this).navigate(item.getItemId(),null,options.build());
+        NavigationManager.getNavController(this).navigate(item.getItemId(), null, options.build());
 
         // categoriesFragment doesn't have an active state in BottomSheet
         return item.getItemId() != R.id.categoriesFragment;
@@ -60,30 +63,39 @@ public class MainActivity extends AppCompatActivity {
 
     private void onDestinationChanged(NavController controller, NavDestination destination, Bundle arguments) {
 
+        if (destination.getId() == R.id.todoDetailFragment || destination.getId() == R.id.splashFragment) {
+            binding.bottomNavigationView.setVisibility(View.GONE);
+        } else if (binding.bottomNavigationView.getVisibility() == View.GONE) {
+            binding.bottomNavigationView.setVisibility(View.VISIBLE);
+        }
+
+
         if (destination.getId() == R.id.todoListFragment && addTodoBottomSheet.isHidden())
             binding.addTodoBtn.show();
         else binding.addTodoBtn.hide();
 
-    // addTodoBottomSheet Visibility
-    boolean isDestTodoDetail = destination.getId() == R.id.todoDetailFragment;
+        // addTodoBottomSheet Visibility
+        boolean isDestTodoDetail = destination.getId() == R.id.todoDetailFragment;
         if (isDestTodoDetail) addTodoBottomSheet.hide();
 
 
-    Menu menu = binding.bottomNavigationView.getMenu();
-    MenuItem item = menu.findItem(destination.getId());
+        Menu menu = binding.bottomNavigationView.getMenu();
+        MenuItem item = menu.findItem(destination.getId());
         if (item != null)
             item.setChecked(true);
 
-
-
-        binding.bottomNavigationView.setVisibility(destination.getId() == R.id.splashFragment ? View.GONE : View.VISIBLE);
-
-}
+        
+    }
 
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         addTodoBottomSheet.onDestroy();
+    }
+
+
+    public static MainActivity get(Fragment fragment) {
+        return ((MainActivity) fragment.requireActivity());
     }
 }

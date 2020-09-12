@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ir.timurid.smarttask.MainActivity;
 import ir.timurid.smarttask.R;
@@ -102,6 +105,19 @@ public class TodoDetailFragment extends Fragment {
     public void editTodo(Todo todo) {
         addTodoVM.setEditTodo(todo);
         ((MainActivity) requireActivity()).showAddTodoLayout(null);
+    }
+
+    public void onDeleteBtn(View view) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle(R.string.title_deleteTodo)
+                .setMessage(R.string.desc_deleteTodo)
+                .setPositiveButton(R.string.action_delete, (dialog, which) -> {
+                    viewModel.deleteTodo();
+                    onCloseBtn(null);
+                })
+                .setNegativeButton(R.string.action_no, (dialog, which) -> dialog.dismiss())
+                .show();
+
     }
 
     public long getTodoId() {

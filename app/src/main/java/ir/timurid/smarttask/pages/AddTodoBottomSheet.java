@@ -2,14 +2,13 @@ package ir.timurid.smarttask.pages;
 
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -23,8 +22,10 @@ import ir.timurid.smarttask.utils.VMProvider;
 import ir.timurid.smarttask.viewModel.AddTodoVM;
 import lombok.Getter;
 
-import static com.google.android.material.bottomsheet.BottomSheetBehavior.*;
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback;
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED;
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN;
+import static com.google.android.material.bottomsheet.BottomSheetBehavior.from;
 
 public class AddTodoBottomSheet extends BottomSheetCallback {
     private LayoutAddTodoBinding binding;
@@ -44,6 +45,7 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
         dependenciesInit();
         bottomSheetInit();
         bindingInit();
+
     }
 
     private void dependenciesInit() {
@@ -103,7 +105,7 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
     //region Priority Chip
     @SuppressWarnings("unused")
     public void onPriorityChipClick(View view) {
-        new AlertDialog.Builder(activity)
+        new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.title_priority)
                 .setItems(viewModel.getPrioritiesRes(), (dialog, which) -> viewModel.getPriorityField().set(which))
                 .setCancelable(true)
@@ -152,6 +154,8 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
             binding.titleInput.setSelection(titleVal != null ? titleVal.length() : 0);
 
             KeyboardHelper.showKeyboard(activity,binding.titleInput);
+        } else if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+            binding.descriptionInput.requestFocus();
         }
 
     }

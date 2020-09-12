@@ -10,8 +10,9 @@
 
     <color name="dayNight_primaryText">#212121</color>
     <color name="dayNight_secondaryText">#757575</color>
-    <color name="dayNight_background">#F5F5F5</color>
+    <color name="dayNight_background">#fff</color>
     <color name="dayNight_foreground">#F5F5F5</color>
+    <color name="dayNight_dialog_background">#EDE7F6</color>
 
 
     <array name="prioritiesColors">

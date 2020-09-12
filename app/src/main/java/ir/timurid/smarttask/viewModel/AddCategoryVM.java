@@ -2,6 +2,7 @@ package ir.timurid.smarttask.viewModel;
 
 import android.app.Application;
 import android.os.Bundle;
+import android.text.Editable;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
@@ -46,7 +47,10 @@ public class AddCategoryVM extends AndroidViewModel {
 
     public void insertCategory() {
         String title = getTitleField().get();
+        if (title != null) title = title.trim();
+
         String color = getColorField().get();
+        if (color != null) color = color.trim();
 
         Category category = new Category();
         category.setTitle(title);
@@ -58,8 +62,8 @@ public class AddCategoryVM extends AndroidViewModel {
         } else repository.insertCategory(category);
     }
 
-    public static boolean isTitleAcceptable(String title) {
-        if (title == null) return false;
+    public static boolean isTitleAcceptable(Editable editable) {
+        String title = editable.toString();
         title = title.trim();
         return title.length() <= TITLE_MAX_LENGTH && !title.isEmpty();
     }
