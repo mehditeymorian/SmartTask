@@ -3,13 +3,17 @@ package ir.timurid.smarttask.utils;
 import android.app.Activity;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import ir.timurid.smarttask.R;
+
+import static ir.timurid.smarttask.utils.NavigationManager.getNavController;
 
 public class VMProvider {
     public static final int MAIN_GRAPH = R.id.navigation_mainGraph;
@@ -20,8 +24,8 @@ public class VMProvider {
         return getViewModelProvider(fragment, navigationGraphId, getAndroidViewModelFactory(fragment.requireActivity())).get(mClass);
     }
 
-    public static <T extends ViewModel> T getAndroidModel(Activity activity, int navigationGraphId, Class<T> mClass) {
-        return new ViewModelProvider(NavigationManager.getNavController(activity).getViewModelStoreOwner(navigationGraphId)).get(mClass);
+    public static <T extends ViewModel> T getAndroidModel(FragmentActivity activity, int navigationGraphId, Class<T> mClass) {
+        return new ViewModelProvider(getNavController(activity).getViewModelStoreOwner(navigationGraphId)).get(mClass);
     }
 
     public static <T extends ViewModel> T getModel(Fragment fragment, int navigationGraphId, Class<T> mClass) {
@@ -41,9 +45,6 @@ public class VMProvider {
         return getNavController(fragment).getViewModelStoreOwner(navigationGraphId);
     }
 
-    public static NavController getNavController(Fragment fragment) {
-        return NavHostFragment.findNavController(fragment);
-    }
 
     private static androidx.lifecycle.ViewModelProvider.Factory getAndroidViewModelFactory(Activity activity) {
         return new androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory(activity.getApplication());

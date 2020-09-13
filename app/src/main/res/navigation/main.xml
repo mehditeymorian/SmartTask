@@ -73,4 +73,9 @@
             android:label="TodoDetailFragment"
             tools:layout="@layout/layout_todo_detail" />
     </navigation>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ir.timurid.smarttask.pages.SettingsFragment"
+        android:label="layout_settings"
+        tools:layout="@layout/layout_settings" />
 </navigation>

@@ -20,12 +20,11 @@
 
 
 
-        <fragment
-            android:id="@+id/activity_fragmentHolder"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/nav_host_fragment_container"
             android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             app:defaultNavHost="true"
             app:navGraph="@navigation/main" />
 
@@ -50,8 +49,8 @@
             android:clickable="true"
             android:focusable="true"
             android:onClick="@{parent::showAddTodoLayout}"
-            android:src="@drawable/ic_add"
-            android:tint="@color/dayNight_foreground"
+            app:srcCompat="@drawable/ic_add"
+            app:tint="@color/dayNight_foreground"
             app:backgroundTint="@color/colorPrimary"
             app:layout_anchorGravity="end|bottom"
             app:layout_anchor="@id/bottomNavigationView"

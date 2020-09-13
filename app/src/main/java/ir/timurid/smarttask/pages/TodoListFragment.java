@@ -43,6 +43,7 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         viewModel = VMProvider.getAndroidModel(this, VMProvider.MAIN_GRAPH, TodoListVM.class);
         addTodoVM = VMProvider.getAndroidModel(this, VMProvider.MAIN_GRAPH, AddTodoVM.class);
         adapter = new TodoAdapter(this, viewModel.getPrioritiesColors());

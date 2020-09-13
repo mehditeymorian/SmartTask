@@ -38,6 +38,10 @@
     <string name="title_passed">گذشته</string>
     <string name="title_today">امروز</string>
     <string name="title_tomorrow">فردا</string>
+    <string name="title_settings">تنظیمات</string>
+    <string name="title_waterfall_todo_insertion">اضافه کردن آبشاری کارها</string>
+    <string name="title_app_language">زبان برنامه</string>
+    <string name="title_app_theme">تم برنامه</string>
 
 
 </resources>

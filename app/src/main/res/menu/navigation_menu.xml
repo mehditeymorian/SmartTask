@@ -17,5 +17,10 @@
         android:icon="@drawable/ic_category"
         android:title="@string/title_categories" />
 
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/title_settings" />
+
 
 </menu>

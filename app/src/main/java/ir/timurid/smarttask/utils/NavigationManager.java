@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -13,7 +15,7 @@ import java.util.function.Consumer;
 import ir.timurid.smarttask.R;
 
 public class NavigationManager {
-    private static final int NAV_HOST_FRAGMENT = R.id.activity_fragmentHolder;
+    private static final int NAV_HOST_FRAGMENT = R.id.nav_host_fragment_container;
 
 
     public static <T> Consumer<Integer> navigate(T context) {
@@ -22,8 +24,8 @@ public class NavigationManager {
 
 
     public static <T> Consumer<Integer> navigate(T t, Bundle bundle) {
-        if (t instanceof Activity) {
-            Activity activity = (Activity) t;
+        if (t instanceof FragmentActivity) {
+            FragmentActivity activity = (FragmentActivity) t;
             return navigationAction -> getNavController(activity).navigate(navigationAction,bundle);
         }
 
@@ -34,17 +36,20 @@ public class NavigationManager {
     }
 
     public static <T> void popBackFrom(T t) {
-        if ( t instanceof Activity)
-            getNavController( (Activity) t).popBackStack();
+        if ( t instanceof FragmentActivity)
+            getNavController( (FragmentActivity) t).popBackStack();
         else
             getNavController( (Fragment) t).popBackStack();
     }
 
     public static NavController getNavController(Fragment fragment) {
-        return NavHostFragment.findNavController(fragment);
+        FragmentActivity activity = fragment.requireActivity();
+        return getNavController(activity);
     }
 
-    public static NavController getNavController(Activity activity) {
-        return Navigation.findNavController(activity, NAV_HOST_FRAGMENT);
+    public static NavController getNavController(FragmentActivity activity) {
+        FragmentManager supportFragmentManager = activity.getSupportFragmentManager();
+        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container);
+        return navHostFragment.getNavController();
     }
 }
