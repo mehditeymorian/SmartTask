@@ -7,9 +7,11 @@ import androidx.annotation.DrawableRes;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.chip.Chip;
 
 import ir.timurid.smarttask.R;
+import ir.timurid.smarttask.db.Preferences;
 
 public class BindingAdapters {
     public static int[] prioritiesIconsRes =
@@ -33,4 +35,6 @@ public class BindingAdapters {
 
         chip.setChipIcon(iconDrawable);
     }
+
+
 }

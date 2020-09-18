@@ -7,9 +7,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
 import ir.timurid.smarttask.R;
 
@@ -17,7 +14,7 @@ import static ir.timurid.smarttask.utils.NavigationManager.getNavController;
 
 public class VMProvider {
     public static final int MAIN_GRAPH = R.id.navigation_mainGraph;
-    public static final int ADD_CATEGORY_GRAPH = R.id.navigation_addCategoryGraph;
+    public static final int CATEGORIES_GRAPH = R.id.navigation_graph_categories;
     public static final int TODO_DETAIL_GRAPH = R.id.navigation_graph_todoDetail;
 
     public static <T extends ViewModel> T getAndroidModel(Fragment fragment, int navigationGraphId, Class<T> mClass) {

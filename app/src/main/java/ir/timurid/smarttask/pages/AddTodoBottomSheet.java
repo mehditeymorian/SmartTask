@@ -1,26 +1,27 @@
 package ir.timurid.smarttask.pages;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
 
+import javax.inject.Inject;
+
+import dagger.Lazy;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
 import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 import ir.timurid.smarttask.MainActivity;
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.databinding.LayoutAddTodoBinding;
+import ir.timurid.smarttask.db.Preferences;
 import ir.timurid.smarttask.utils.KeyboardHelper;
 import ir.timurid.smarttask.utils.NavigationManager;
-import ir.timurid.smarttask.utils.VMProvider;
 import ir.timurid.smarttask.viewModel.AddTodoVM;
-import lombok.Getter;
 
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback;
 import static com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED;
@@ -30,8 +31,7 @@ import static com.google.android.material.bottomsheet.BottomSheetBehavior.from;
 public class AddTodoBottomSheet extends BottomSheetCallback {
     private LayoutAddTodoBinding binding;
     private MainActivity activity;
-    @Getter
-    private AddTodoVM viewModel;
+    private Lazy<AddTodoVM> viewModel;
 
 
     @SuppressWarnings("rawtypes")
@@ -39,39 +39,45 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
 
 
     //region Class Initialization
-    public AddTodoBottomSheet(LayoutAddTodoBinding binding, MainActivity activity) {
-        this.binding = binding;
+    @Inject
+    public AddTodoBottomSheet(MainActivity activity, Lazy<AddTodoVM> viewModel) {
         this.activity = activity;
-        dependenciesInit();
-        bottomSheetInit();
-        bindingInit();
-
+        this.viewModel = viewModel;
     }
 
-    private void dependenciesInit() {
-        viewModel = VMProvider.getAndroidModel(activity, VMProvider.MAIN_GRAPH, AddTodoVM.class);
-    }
+    public void init() {
+        this.binding = activity.binding.addTodoLayout;
 
-    private void bottomSheetInit() {
         bottomSheetBehavior = from(binding.layout);
         bottomSheetBehavior.addBottomSheetCallback(this);
-    }
 
-    private void bindingInit() {
+
         binding.setParent(this);
-        binding.setViewModel(viewModel);
-        binding.setPrioritiesRes(viewModel.getPrioritiesRes());
-        binding.deadlineChip.setOnCloseIconClickListener(v -> viewModel.setDeadline(null));
-        binding.categoryChip.setOnCloseIconClickListener(v -> viewModel.getCategoryField().set(null));
+        binding.setViewModel(getViewModel());
+        binding.setPrioritiesRes(getViewModel().getPrioritiesRes());
+        binding.deadlineChip.setOnCloseIconClickListener(v -> getViewModel().setDeadline(null));
+        binding.categoryChip.setOnCloseIconClickListener(v -> getViewModel().getCategoryField().set(null));
         binding.titleLayout.setStartIconOnClickListener(v -> {
-            viewModel.dismissEditMode();
+            getViewModel().dismissEditMode();
             hide();
         });
         binding.titleLayout.setEndIconOnClickListener(v -> {
-            viewModel.insertTodo();
-            hide();
+            boolean waterfallAddEnable = Preferences.getWaterfallTodoAdd(activity);
+            boolean editMode = getViewModel().isEditMode();
+
+            getViewModel().insertTodo();
+
+            if (waterfallAddEnable && !editMode){
+                getViewModel().clearFields();
+                onCollapsedState();
+            }else hide();
         });
         hide();
+    }
+
+
+    private AddTodoVM getViewModel() {
+        return viewModel.get();
     }
     //endregion
 
@@ -83,7 +89,7 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
         datePicker.setListener(new Listener() {
             @Override
             public void onDateSelected(PersianCalendar persianCalendar) {
-                viewModel.setDeadline(persianCalendar.getTime());
+                getViewModel().setDeadline(persianCalendar.getTime());
             }
 
             @Override
@@ -107,7 +113,7 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
     public void onPriorityChipClick(View view) {
         new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.title_priority)
-                .setItems(viewModel.getPrioritiesRes(), (dialog, which) -> viewModel.getPriorityField().set(which))
+                .setItems(getViewModel().getPrioritiesRes(), (dialog, which) -> getViewModel().getPriorityField().set(which))
                 .setCancelable(true)
                 .show();
     }
@@ -138,26 +144,27 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
 
     @Override
     public void onStateChanged(@NonNull View bottomSheet, int newState) {
-        if (newState == STATE_HIDDEN) {
-
-            int destination = NavigationManager.getNavController(activity).getCurrentDestination().getId();
-            if (destination == R.id.todoListFragment) activity.binding.addTodoBtn.show();
-
-            KeyboardHelper.hideKeyboard(activity, binding.getRoot());
-
-            binding.getRoot().clearFocus();
-
-        } else if (newState == STATE_COLLAPSED) {
-            binding.titleInput.requestFocus();
-
-            Editable titleVal = binding.titleInput.getText();
-            binding.titleInput.setSelection(titleVal != null ? titleVal.length() : 0);
-
-            KeyboardHelper.showKeyboard(activity,binding.titleInput);
-        } else if (newState == BottomSheetBehavior.STATE_EXPANDED) {
+        if (newState == STATE_HIDDEN) onHiddenState();
+        else if (newState == STATE_COLLAPSED) onCollapsedState();
+        else if (newState == BottomSheetBehavior.STATE_EXPANDED)
             binding.descriptionInput.requestFocus();
-        }
 
+    }
+
+    private void onHiddenState() {
+        int destination = NavigationManager.getNavController(activity).getCurrentDestination().getId();
+        if (destination == R.id.todoListFragment) activity.binding.addTodoBtn.show();
+
+        KeyboardHelper.hideKeyboard(activity, binding.getRoot());
+
+        binding.getRoot().clearFocus();
+    }
+
+    private void onCollapsedState() {
+        TextInputEditText titleInput = binding.titleInput;
+        titleInput.requestFocus();
+        KeyboardHelper.setSelectionAtEndEditText(titleInput);
+        KeyboardHelper.showKeyboard(activity, titleInput);
     }
 
     @Override
@@ -172,4 +179,6 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
         activity = null;
         binding.unbind();
     }
+
+
 }

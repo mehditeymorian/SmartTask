@@ -11,6 +11,9 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.databinding.LayoutAddCategoryBinding;
 import ir.timurid.smarttask.utils.Delay;
@@ -20,6 +23,7 @@ import ir.timurid.smarttask.utils.VMProvider;
 import ir.timurid.smarttask.viewModel.AddCategoryVM;
 
 
+@AndroidEntryPoint
 public class AddCategoryModal extends BottomSheetDialogFragment {
     public static final String EDIT_MODE = "EDIT_MODE";
     public static final String EDIT_MODE_COLOR = "EDIT_MODE_COLOR";
@@ -27,15 +31,10 @@ public class AddCategoryModal extends BottomSheetDialogFragment {
     public static final String EDIT_MODE_ID = "EDIT_MODE_ID";
 
     private LayoutAddCategoryBinding binding;
-    private AddCategoryVM viewModel;
 
+    @Inject
+    AddCategoryVM viewModel;
 
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = VMProvider.getAndroidModel(this, VMProvider.ADD_CATEGORY_GRAPH, AddCategoryVM.class);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -51,23 +50,18 @@ public class AddCategoryModal extends BottomSheetDialogFragment {
         binding.setViewModel(viewModel);
         binding.titleLayout.setStartIconOnClickListener(v ->  NavigationManager.navigate(this).accept(R.id.navigation_addCategory_colorPicker));
         binding.titleLayout.setEndIconOnClickListener(this::onAddBtnClick);
-        viewModel.setEditBundle(getArguments());
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
         binding.titleInput.requestFocus();
-
-        Editable titleVal = binding.titleInput.getText();
-        binding.titleInput.setSelection(titleVal != null ? titleVal.length() : 0);
     }
+
+
 
     @Override
     public void onResume() {
         super.onResume();
-        Delay.forTime(250).andThen(() -> KeyboardHelper.showKeyboard(getContext(), binding.titleInput));
+        Delay.forTime(250).andThen(() -> {
+            KeyboardHelper.showKeyboard(getContext(), binding.titleInput);
+            KeyboardHelper.setSelectionAtEndEditText(binding.titleInput);
+        });
     }
 
     @Override

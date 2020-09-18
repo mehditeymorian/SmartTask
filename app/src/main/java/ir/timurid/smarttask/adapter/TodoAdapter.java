@@ -97,7 +97,7 @@ public class TodoAdapter extends ListAdapter<Todo, TodoAdapter.ViewHolder> {
                 case DEADLINE_NOT_SET:
                     return "";
                 case DEADLINE_PASSED:
-                    return resources.getString(R.string.title_passed);
+                    return resources.getString(R.string.title_overdue);
                 case DEADLINE_TODAY:
                     return resources.getString(R.string.title_today);
                 case DEADLINE_TOMORROW:

@@ -8,6 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.AndroidViewModel;
 
+import dagger.hilt.android.internal.lifecycle.DefaultActivityViewModelFactory;
+import dagger.hilt.android.internal.lifecycle.DefaultFragmentViewModelFactory;
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.db.Repository;
 import ir.timurid.smarttask.model.Category;
@@ -18,6 +20,7 @@ import static ir.timurid.smarttask.pages.AddCategoryModal.EDIT_MODE;
 import static ir.timurid.smarttask.pages.AddCategoryModal.EDIT_MODE_COLOR;
 import static ir.timurid.smarttask.pages.AddCategoryModal.EDIT_MODE_ID;
 import static ir.timurid.smarttask.pages.AddCategoryModal.EDIT_MODE_TITLE;
+
 
 public class AddCategoryVM extends AndroidViewModel {
     public static final int TITLE_MAX_LENGTH = 30;
@@ -34,8 +37,7 @@ public class AddCategoryVM extends AndroidViewModel {
     @Getter
     private String[] colors;
 
-    private Bundle editBundle;
-
+    private Long editCategoryId;
 
     public AddCategoryVM(@NonNull Application application) {
         super(application);
@@ -57,7 +59,7 @@ public class AddCategoryVM extends AndroidViewModel {
         category.setColor(color);
 
         if (isEditMode()) {
-            category.setCategoryId(getEditId());
+            category.setCategoryId(editCategoryId);
             repository.updateCategory(category);
         } else repository.insertCategory(category);
     }
@@ -70,30 +72,23 @@ public class AddCategoryVM extends AndroidViewModel {
 
 
     //region Edit Mode
-    public void setEditBundle(Bundle editBundle) {
-        this.editBundle = editBundle;
-
+    public void setEditCategory(Bundle editBundle) {
         if (editBundle == null) return;
 
         String title = editBundle.getString(EDIT_MODE_TITLE, null);
         titleField.set(title);
         String color = editBundle.getString(EDIT_MODE_COLOR, "#000000");
         colorField.set(color);
+
+        editCategoryId = editBundle.getLong(EDIT_MODE_ID, -1);
     }
 
     public boolean isEditMode() {
-        if (editBundle == null) return false;
-        return editBundle.getBoolean(EDIT_MODE, false);
-    }
-
-    public long getEditId() {
-        if (editBundle == null)
-            return -1;
-        return editBundle.getLong(EDIT_MODE_ID, -1);
+        return editCategoryId != null;
     }
 
     public void clearStates() {
-        editBundle = null;
+        editCategoryId = null;
     }
     //endregion
 

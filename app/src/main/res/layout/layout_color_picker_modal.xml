@@ -22,7 +22,7 @@
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Color Picker Dialog Title"
+            android:text="@string/pickColor"
             android:textColor="@color/dayNight_primaryText"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"

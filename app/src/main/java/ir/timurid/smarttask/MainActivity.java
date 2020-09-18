@@ -1,42 +1,66 @@
 package ir.timurid.smarttask;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.NavOptions;
 
-import ir.timurid.smarttask.databinding.ActivityMainBinding;
-import ir.timurid.smarttask.pages.AddTodoBottomSheet;
-import ir.timurid.smarttask.utils.NavigationManager;
+import javax.inject.Inject;
 
+import dagger.hilt.android.AndroidEntryPoint;
+import ir.timurid.smarttask.databinding.ActivityMainBinding;
+import ir.timurid.smarttask.db.Preferences;
+import ir.timurid.smarttask.pages.AddTodoBottomSheet;
+import ir.timurid.smarttask.utils.LocaleManager;
+import ir.timurid.smarttask.utils.NavigationManager;
+import ir.timurid.smarttask.utils.VMProvider;
+import ir.timurid.smarttask.viewModel.AddTodoVM;
+
+@AndroidEntryPoint
 public class MainActivity extends AppCompatActivity {
+
     public ActivityMainBinding binding;
-    private AddTodoBottomSheet addTodoBottomSheet;
+
+    @Inject
+    AddTodoBottomSheet addTodoBottomSheet;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocaleManager.wrapContext(newBase));
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(Preferences.getThemeMode(this));
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.setParent(this);
 
-        // TODO: 8/16/2020 inject
-        addTodoBottomSheet = new AddTodoBottomSheet(binding.addTodoLayout, this);
+
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(this::onNavigationItemSelected);
-
         NavigationManager.getNavController(this).addOnDestinationChangedListener(this::onDestinationChanged);
-
-
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        addTodoBottomSheet.init();
+    }
 
     public void showAddTodoLayout(View view) {
         addTodoBottomSheet.show();

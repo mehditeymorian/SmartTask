@@ -13,38 +13,40 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import javax.inject.Inject;
+
+import dagger.Lazy;
+import dagger.hilt.android.AndroidEntryPoint;
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.adapter.CategoriesAdapter;
 import ir.timurid.smarttask.databinding.LayoutCategoriesBinding;
 import ir.timurid.smarttask.model.Category;
 import ir.timurid.smarttask.utils.NavigationManager;
-import ir.timurid.smarttask.utils.VMProvider;
 import ir.timurid.smarttask.viewModel.AddTodoVM;
 import ir.timurid.smarttask.viewModel.CategoriesVM;
+import lombok.Getter;
 
 import static ir.timurid.smarttask.model.Category.DEFAULT_CATEGORY_ID;
 
 
+@AndroidEntryPoint
 public class CategoriesModal extends BottomSheetDialogFragment implements CategoriesAdapter.OnItemClickListener {
     public static final String MODE_SELECTION = "MODE_SELECTION";
 
     private LayoutCategoriesBinding binding;
-    private CategoriesVM viewModel;
 
-    private AddTodoVM addTodoViewModel;
+    @Inject
+    CategoriesVM viewModel;
 
-    private CategoriesAdapter categoriesAdapter;
+    @Inject
+    Lazy<AddTodoVM> addTodoViewModel;
 
+    @Inject
+    CategoriesAdapter categoriesAdapter;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = VMProvider.getAndroidModel(this, VMProvider.MAIN_GRAPH, CategoriesVM.class);
-        categoriesAdapter = new CategoriesAdapter(this);
-
-        if (isSelectionModeActive())
-            addTodoViewModel = VMProvider.getAndroidModel(this, VMProvider.MAIN_GRAPH, AddTodoVM.class);
-    }
+    @Inject
+    @Getter
+    boolean isSelectionModeActive;
 
 
     @Override
@@ -126,13 +128,8 @@ public class CategoriesModal extends BottomSheetDialogFragment implements Catego
     }
 
     private void selectCategory(Category category) {
-        addTodoViewModel.getCategoryField().set(category);
+        addTodoViewModel.get().getCategoryField().set(category);
         NavigationManager.popBackFrom(this);
     }
 
-    private boolean isSelectionModeActive() {
-        Bundle arguments = getArguments();
-        if (arguments == null) return false;
-        return arguments.getBoolean(MODE_SELECTION, false);
-    }
 }

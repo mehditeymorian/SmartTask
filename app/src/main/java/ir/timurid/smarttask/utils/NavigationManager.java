@@ -1,11 +1,9 @@
 package ir.timurid.smarttask.utils;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
@@ -15,7 +13,7 @@ import java.util.function.Consumer;
 import ir.timurid.smarttask.R;
 
 public class NavigationManager {
-    private static final int NAV_HOST_FRAGMENT = R.id.nav_host_fragment_container;
+    private static final int NAV_HOST_FRAGMENT = R.id.nav_host_fragment;
 
 
     public static <T> Consumer<Integer> navigate(T context) {
@@ -43,13 +41,10 @@ public class NavigationManager {
     }
 
     public static NavController getNavController(Fragment fragment) {
-        FragmentActivity activity = fragment.requireActivity();
-        return getNavController(activity);
+        return NavHostFragment.findNavController(fragment);
     }
 
     public static NavController getNavController(FragmentActivity activity) {
-        FragmentManager supportFragmentManager = activity.getSupportFragmentManager();
-        NavHostFragment navHostFragment = (NavHostFragment) supportFragmentManager.findFragmentById(R.id.nav_host_fragment_container);
-        return navHostFragment.getNavController();
+            return Navigation.findNavController(activity, NAV_HOST_FRAGMENT);
     }
 }

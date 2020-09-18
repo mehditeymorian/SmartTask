@@ -1,8 +1,6 @@
 package ir.timurid.smarttask.viewModel;
 
 import android.app.Application;
-import android.os.Bundle;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
@@ -20,8 +18,6 @@ import ir.timurid.smarttask.model.Category;
 import ir.timurid.smarttask.model.Todo;
 import ir.timurid.smarttask.model.TodoInfo;
 import lombok.Getter;
-
-
 
 
 public class AddTodoVM extends AndroidViewModel {
@@ -49,7 +45,7 @@ public class AddTodoVM extends AndroidViewModel {
 
     private Todo editTodo;
     @Getter
-    private ObservableBoolean isEditMode = new ObservableBoolean();
+    private ObservableBoolean editMode = new ObservableBoolean();
 
 
 
@@ -79,7 +75,7 @@ public class AddTodoVM extends AndroidViewModel {
                 .build();
 
 
-        if (isEditMode.get()) {
+        if (editMode.get()) {
             todoInfo.setTodoId(editTodo.getInfo().getTodoId());
             repository.updateTodo(todoInfo);
 
@@ -112,7 +108,7 @@ public class AddTodoVM extends AndroidViewModel {
     public void setEditTodo(Todo todo) {
         this.editTodo = todo;
 
-        isEditMode.set(true);
+        editMode.set(true);
 
         titleField.set(todo.getInfo().getTitle());
         deadlineField.set(todo.getInfo().getDeadline());
@@ -125,10 +121,13 @@ public class AddTodoVM extends AndroidViewModel {
 
     public void dismissEditMode() {
         editTodo = null; // nullity of editTodo indicate Create Mode
-        isEditMode.set(false);
+        editMode.set(false);
         clearFields();
     }
 
+    public boolean isEditMode() {
+        return editMode.get();
+    }
     //endregion
 
     @Override

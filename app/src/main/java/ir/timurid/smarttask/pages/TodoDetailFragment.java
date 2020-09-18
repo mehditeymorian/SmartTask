@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.fragment.app.Fragment;
@@ -17,6 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import ir.timurid.smarttask.MainActivity;
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.databinding.LayoutTodoDetailBinding;
@@ -29,32 +31,21 @@ import ir.timurid.smarttask.viewModel.AddTodoVM;
 import ir.timurid.smarttask.viewModel.TodoDetailVM;
 
 
+@AndroidEntryPoint
 public class TodoDetailFragment extends Fragment {
     public static final String TODO_ID = "TODO_ID";
-    private TodoDetailVM viewModel;
-    private AddTodoVM addTodoVM;
     private LayoutTodoDetailBinding binding;
 
+    @Inject
+    TodoDetailVM viewModel;
+    @Inject
+    AddTodoVM addTodoVM;
+    @Inject
+    int[] prioritiesColors;
+    @Inject
+    String[] priorities;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        ViewModelProvider.Factory factory = getTodoDetailFactory(getTodoId());
-        viewModel = VMProvider.getModelFactory(this, VMProvider.TODO_DETAIL_GRAPH, TodoDetailVM.class, factory);
-        addTodoVM = VMProvider.getAndroidModel(this, VMProvider.MAIN_GRAPH, AddTodoVM.class);
-
-    }
-
-    private ViewModelProvider.Factory getTodoDetailFactory(long todoId) {
-        return new ViewModelProvider.Factory() {
-            @NonNull
-            @Override
-            public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-                return (T) new TodoDetailVM(getActivity().getApplication(), todoId);
-            }
-        };
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -72,7 +63,7 @@ public class TodoDetailFragment extends Fragment {
 
         viewModel.getTodo().observe(getViewLifecycleOwner(), this::onTodoReceive);
 
-        binding.setPrioritiesRes(getResources().getStringArray(R.array.priorities));
+        binding.setPrioritiesRes(priorities);
 
 
     }
@@ -80,7 +71,7 @@ public class TodoDetailFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (addTodoVM.getIsEditMode().get())
+        if (addTodoVM.getEditMode().get())
             addTodoVM.dismissEditMode();
     }
 
@@ -91,7 +82,6 @@ public class TodoDetailFragment extends Fragment {
         Drawable priorityIcon = ContextCompat.getDrawable(requireContext(), priorityIconRes);
         binding.priorityTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(priorityIcon, null, null, null);
 
-        int[] prioritiesColors = getResources().getIntArray(R.array.prioritiesColors);
         int priorityColor = prioritiesColors[todo.getInfo().getPriority()];
         TextViewCompat.setCompoundDrawableTintList(binding.priorityTextView, ColorUtils.getColorStateList(priorityColor));
 
@@ -104,7 +94,7 @@ public class TodoDetailFragment extends Fragment {
 
     public void editTodo(Todo todo) {
         addTodoVM.setEditTodo(todo);
-        ((MainActivity) requireActivity()).showAddTodoLayout(null);
+        MainActivity.get(this).showAddTodoLayout(null);
     }
 
     public void onDeleteBtn(View view) {

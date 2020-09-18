@@ -5,31 +5,20 @@
     android:id="@+id/navigation_mainGraph"
     app:startDestination="@id/splashFragment">
 
-    <dialog
-        android:id="@+id/categoriesFragment"
-        android:name="ir.timurid.smarttask.pages.CategoriesModal"
-        android:label="fragment_categories"
-        tools:layout="@layout/layout_categories">
-        <action
-            android:id="@+id/navigation_categories_addCategory"
-            app:destination="@id/navigation_addCategoryGraph"
-            app:popUpToInclusive="false" />
-    </dialog>
     <fragment
         android:id="@+id/todoListFragment"
         android:name="ir.timurid.smarttask.pages.TodoListFragment"
         android:label="TodoListFragment"
         tools:layout="@layout/layout_todolist">
         <action
-            android:id="@+id/navigation_todoList_categories"
-            app:destination="@id/categoriesFragment"
-            app:popUpToInclusive="false" />
-        <action
             android:id="@+id/navigation_todoList_todoDetail"
             app:destination="@id/navigation_graph_todoDetail" />
+        <action
+            android:id="@+id/navigation_todoList_categories"
+            app:destination="@id/categoriesFragment" />
     </fragment>
     <navigation
-        android:id="@+id/navigation_addCategoryGraph"
+        android:id="@+id/navigation_graph_categories"
         app:startDestination="@id/addCategoryFragment">
         <dialog
             android:id="@+id/addCategoryFragment"
@@ -78,4 +67,13 @@
         android:name="ir.timurid.smarttask.pages.SettingsFragment"
         android:label="layout_settings"
         tools:layout="@layout/layout_settings" />
+    <dialog
+        android:id="@+id/categoriesFragment"
+        android:name="ir.timurid.smarttask.pages.CategoriesModal"
+        android:label="categoriesFragment"
+        tools:layout="@layout/layout_categories">
+        <action
+            android:id="@+id/navigation_categories_addCategory"
+            app:destination="@id/navigation_graph_categories" />
+    </dialog>
 </navigation>

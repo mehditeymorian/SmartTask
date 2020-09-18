@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             app:startIconDrawable="@drawable/ic_dismiss"
             app:startIconTint="@android:color/holo_red_light"
-            app:startIconVisible="@{viewModel.isEditMode}"
+            app:startIconVisible="@{viewModel.editMode}"
             app:endIconDrawable="@drawable/ic_create"
             app:endIconVisible="@{viewModel.titleField.length() > 0}"
             app:endIconMode="custom"

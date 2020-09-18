@@ -10,29 +10,32 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import ir.timurid.smarttask.R;
 import ir.timurid.smarttask.adapter.TodoAdapter;
 import ir.timurid.smarttask.databinding.LayoutDoneTodolistBinding;
+import ir.timurid.smarttask.di.TodoListModule;
 import ir.timurid.smarttask.model.Todo;
 import ir.timurid.smarttask.utils.NavigationManager;
 import ir.timurid.smarttask.utils.VMProvider;
 import ir.timurid.smarttask.viewModel.TodoListVM;
 
 
+@AndroidEntryPoint
 public class DoneTodoListFragment extends Fragment implements TodoAdapter.OnTodoItemListener {
 
     private LayoutDoneTodolistBinding binding;
-    private TodoAdapter todoAdapter;
-    private TodoListVM viewModel;
+
+    @Inject
+    TodoListVM viewModel;
+
+    @Inject
+    @TodoListModule.DoneTodoListAdapter
+    TodoAdapter todoAdapter;
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        viewModel = VMProvider.getAndroidModel(this, VMProvider.MAIN_GRAPH, TodoListVM.class);
-        todoAdapter = new TodoAdapter(this, viewModel.getPrioritiesColors());
-        todoAdapter.setDoneList(true);
-    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

@@ -1,5 +1,6 @@
 package ir.timurid.smarttask.pages;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import ir.timurid.smarttask.adapter.ColorPickerAdapter;
 import ir.timurid.smarttask.databinding.LayoutColorPickerModalBinding;
 import ir.timurid.smarttask.utils.NavigationManager;
@@ -20,19 +24,17 @@ import ir.timurid.smarttask.utils.VMProvider;
 import ir.timurid.smarttask.viewModel.AddCategoryVM;
 
 
+@AndroidEntryPoint
 public class ColorPickerModal extends BottomSheetDialogFragment implements ColorPickerAdapter.OnItemClickListener {
+
     private LayoutColorPickerModalBinding binding;
-    private ColorPickerAdapter adapter;
-    private AddCategoryVM viewModel;
 
+    @Inject
+    ColorPickerAdapter adapter;
 
+    @Inject
+    AddCategoryVM viewModel;
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        adapter = new ColorPickerAdapter(this);
-        viewModel = VMProvider.getAndroidModel(this, VMProvider.ADD_CATEGORY_GRAPH, AddCategoryVM.class);
-    }
 
     @Nullable
     @Override
