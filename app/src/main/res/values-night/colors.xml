@@ -6,5 +6,4 @@
     <color name="dayNight_secondaryText">#757575</color>
     <color name="dayNight_background">#000000</color>
     <color name="dayNight_foreground">#212121</color>
-    <color name="dayNight_dialog_background">#0c052b</color>
 </resources>

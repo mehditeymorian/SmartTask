@@ -33,7 +33,7 @@
     <string name="title_deleted">Deleted</string>
     <string name="title_done">Done</string>
     <string name="title_todoOptions">Todo Options</string>
-    <string name="title_passed">Passed</string>
+    <string name="title_overdue">Overdue</string>
     <string name="title_today">Today</string>
     <string name="title_tomorrow">Tomorrow</string>
     <string name="title_settings">Settings</string>
@@ -42,6 +42,7 @@
     <string name="title_app_theme">App Theme</string>
     <string name="title_en" translatable="false">EN</string>
     <string name="title_fa" translatable="false">فا</string>
+    <string name="pickColor">Pick Color</string>
 
 
     <string-array name="todoListOptions">
