@@ -33,7 +33,7 @@ The Goal is to leverage android [JetPack](https://developer.android.com/jetpack)
 
 Other Tools and libraries used:
 - RxAndroid
-- Lombook
+- Lombok
 - Lottie
 
 ## Acknowledgement
