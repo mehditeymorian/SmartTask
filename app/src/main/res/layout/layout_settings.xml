@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="parent"
+            type="ir.timurid.smarttask.pages.SettingsFragment" />
+
+        <import type="ir.timurid.smarttask.db.Preferences" />
+
+        <variable
+            name="languageId"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".pages.SettingsFragment">
+
+        <TextView
+            android:id="@+id/textView7"
+            style="@style/Title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/title_settings"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7">
+
+            <TextView
+                android:id="@+id/waterfallAddTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/title_waterfall_todo_insertion"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:textColor="@color/dayNight_primaryText" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/waterfallAddSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/languageLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/layout_vertic_element_space"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/title_app_language"
+                android:textColor="@color/dayNight_primaryText" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/languageToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+
+                <Button
+                    android:id="@+id/languageFaBtn"
+                    style="@style/MaterialImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/title_fa" />
+
+                <Button
+                    android:id="@+id/languageEnBtn"
+                    style="@style/MaterialImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/title_en" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/layout_vertic_element_space"
+            android:layout_marginEnd="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/languageLayout">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:text="@string/title_app_theme"
+                android:textColor="@color/dayNight_primaryText" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/themeToggleGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:singleSelection="true"
+                app:selectionRequired="true">
+
+                <Button
+                    android:id="@+id/systemThemeBtn"
+                    style="@style/MaterialImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_system_theme" />
+
+                <Button
+                    android:id="@+id/lightThemeBtn"
+                    style="@style/MaterialImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_sun" />
+
+                <Button
+                    android:id="@+id/darkThemeBtn"
+                    style="@style/MaterialImageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:icon="@drawable/ic_moon" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
