@@ -9,6 +9,8 @@ Android Sample Project
 - Subject: Todo List App
 - Duration: 3 Week Part time 
 - Written In: Java
+- Build Tool: Gradle
+
 
 ## Project Definition
 Todo list application with ability to categorized tasks. each task consist of a  title, description, deadline, priority and etc. 
