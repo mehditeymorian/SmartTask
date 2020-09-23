@@ -54,7 +54,6 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
 
         binding.setParent(this);
         binding.setViewModel(getViewModel());
-        binding.setPrioritiesRes(getViewModel().getPrioritiesRes());
         binding.deadlineChip.setOnCloseIconClickListener(v -> getViewModel().setDeadline(null));
         binding.categoryChip.setOnCloseIconClickListener(v -> getViewModel().getCategoryField().set(null));
         binding.titleLayout.setStartIconOnClickListener(v -> {
@@ -113,7 +112,7 @@ public class AddTodoBottomSheet extends BottomSheetCallback {
     public void onPriorityChipClick(View view) {
         new MaterialAlertDialogBuilder(activity)
                 .setTitle(R.string.title_priority)
-                .setItems(getViewModel().getPrioritiesRes(), (dialog, which) -> getViewModel().getPriorityField().set(which))
+                .setItems(R.array.priorities, (dialog, which) -> getViewModel().getPriorityField().set(which))
                 .setCancelable(true)
                 .show();
     }

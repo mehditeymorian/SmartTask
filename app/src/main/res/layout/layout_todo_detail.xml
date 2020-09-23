@@ -22,9 +22,6 @@
             name="todo"
             type="ir.timurid.smarttask.model.Todo" />
 
-        <variable
-            name="prioritiesRes"
-            type="String[]" />
 
     </data>
 
@@ -137,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:drawablePadding="8dp"
-                    android:text='@{@string/title_priority + " " + prioritiesRes[todo.info.priority]}'
+                    app:priorityValue="@{todo.info.priority}"
                     android:textColor="@color/dayNight_primaryText"
                     tools:text="@string/title_priority" />
             </LinearLayout>
@@ -219,10 +216,10 @@
                     android:id="@+id/descriptionTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_description"
                     android:drawablePadding="8dp"
                     android:text="@string/title_description"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    app:drawableStartCompat="@drawable/ic_description" />
 
                 <TextView
                     android:id="@+id/textView2"

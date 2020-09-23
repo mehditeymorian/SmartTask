@@ -25,8 +25,6 @@ public class AddTodoVM extends AndroidViewModel {
 
     private Repository repository;
 
-    @Getter
-    private String[] prioritiesRes;
 
     @Getter
     private ObservableField<String> titleField = new ObservableField<>();
@@ -52,7 +50,6 @@ public class AddTodoVM extends AndroidViewModel {
     public AddTodoVM(@NonNull Application application) {
         super(application);
         repository = new Repository(application);
-        prioritiesRes = application.getResources().getStringArray(R.array.priorities);
         priorityField = new ObservableInt(getPriorityDefaultVal());
 
         defaultCategory = repository.getDefaultCategory();
@@ -77,6 +74,7 @@ public class AddTodoVM extends AndroidViewModel {
 
         if (editMode.get()) {
             todoInfo.setTodoId(editTodo.getInfo().getTodoId());
+            todoInfo.setDoneDate(editTodo.getInfo().getDoneDate());
             repository.updateTodo(todoInfo);
 
         }else repository.insertTodoInfo(todoInfo);
@@ -100,7 +98,8 @@ public class AddTodoVM extends AndroidViewModel {
     }
 
     private int getPriorityDefaultVal() {
-        return prioritiesRes.length - 1;
+//        return getPriorities().length - 1;
+        return 1;
     }
 
 

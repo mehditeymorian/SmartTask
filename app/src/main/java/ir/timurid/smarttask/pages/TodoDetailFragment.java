@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 import javax.inject.Inject;
 
@@ -46,6 +47,12 @@ public class TodoDetailFragment extends Fragment {
     String[] priorities;
 
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setEnterTransition(new MaterialFadeThrough());
+        setExitTransition(new MaterialFadeThrough());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -63,7 +70,6 @@ public class TodoDetailFragment extends Fragment {
 
         viewModel.getTodo().observe(getViewLifecycleOwner(), this::onTodoReceive);
 
-        binding.setPrioritiesRes(priorities);
 
 
     }

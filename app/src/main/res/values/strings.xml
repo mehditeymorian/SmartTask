@@ -4,7 +4,6 @@
     <string name="desc_deleteCategory">This category and All subset Todos will be deleted from your list.</string>
     <string name="title_deleteTodo">Delete Todo</string>
     <string name="desc_deleteTodo">This todo will be delete from your list.</string>
-    <string name="action_yes">Yes</string>
     <string name="action_no">No</string>
     <string name="title_priority">Priority</string>
     <string name="title_noDeadline">No Deadline</string>
@@ -25,7 +24,8 @@
     <string name="title_priority_high">High</string>
     <string name="title_priority_normal">Normal</string>
     <string name="title_priority_low">Low</string>
-    <string name="msg_productivity">Add New Tasks To Boost Your Productivity 💪🏻</string>
+    <string name="msg_todoList">Add New Tasks To Boost Your Productivity 💪🏻</string>
+    <string name="msg_doneTodoList">Tasks Are Waiting to be Done😱😱</string>
     <string name="msg_splash">Always Try To Deliver More.</string>
     <string name="title_daySymbol">Day</string>
     <string name="title_no_doneDate">Not Done</string>

@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="width_priority_line">10dp</dimen>
-    <dimen name="width_category_stroke">2dp</dimen>
     <dimen name="layout_vertic_element_space">16dp</dimen>
     <dimen name="layout_vertic_space">24dp</dimen>
     <dimen name="layout_horizon_space">16dp</dimen>

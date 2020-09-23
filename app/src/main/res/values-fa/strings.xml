@@ -6,7 +6,6 @@
     <string name="desc_deleteCategory">این دسته و تمام کارهای زیرمجموعه از لیست شما پاک خواهند شد.</string>
     <string name="title_deleteTodo">حذف کار</string>
     <string name="desc_deleteTodo">این از لیست شما حذف خواهد شد.</string>
-    <string name="action_yes">بله</string>
     <string name="action_no">خیر</string>
     <string name="title_priority">اولویت</string>
     <string name="title_noDeadline">بدون ضرب الاجل</string>
@@ -27,7 +26,7 @@
     <string name="title_priority_high" >بالا</string>
     <string name="title_priority_normal" >معمولی</string>
     <string name="title_priority_low" >کم</string>
-    <string name="msg_productivity">چند کار جدید اضافه کن تا بازده ات را بالا ببری 💪</string>
+    <string name="msg_todoList">چند کار جدید اضافه کن تا بازده ات را بالا ببری 💪</string>
     <string name="msg_splash">همیشه بیشتر از انتظار بازده داشته باش :)</string>
     <string name="title_daySymbol">روز</string>
     <string name="title_no_doneDate">انجام نشده</string>
@@ -43,6 +42,7 @@
     <string name="title_app_language">زبان برنامه</string>
     <string name="title_app_theme">تم برنامه</string>
     <string name="pickColor">انتخاب رنگ</string>
+    <string name="msg_doneTodoList">کارها منتظر انجام شدن هستن😱😱</string>
 
 
 </resources>

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.transition.MaterialFadeThrough;
 
 import java.util.List;
 
@@ -50,6 +51,12 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
     @Getter
     private LayoutTodolistBinding binding;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setEnterTransition(new MaterialFadeThrough());
+        setExitTransition(new MaterialFadeThrough());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -63,6 +70,7 @@ public class TodoListFragment extends Fragment implements TodoAdapter.OnTodoItem
         super.onViewCreated(view, savedInstanceState);
         binding.setParent(this);
         binding.setViewModel(getViewModel());
+        binding.setEmptyAnimRes(R.raw.productivity_anim);
 
         binding.todoListRecyclerView.setAdapter(getAdapter());
 

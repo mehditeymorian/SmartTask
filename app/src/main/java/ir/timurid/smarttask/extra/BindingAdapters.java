@@ -1,12 +1,16 @@
 package ir.timurid.smarttask.extra;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.widget.TextView;
 
 import androidx.annotation.DrawableRes;
+import androidx.annotation.RawRes;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.chip.Chip;
 
@@ -37,4 +41,17 @@ public class BindingAdapters {
     }
 
 
+    @BindingAdapter("animResource")
+    public static void setAnimResource(LottieAnimationView animationView, @RawRes int res) {
+        animationView.setAnimation(res);
+    }
+
+    @BindingAdapter("priorityValue")
+    public static void setPriorityValue(TextView chip, int priority) {
+        Resources resources = chip.getResources();
+        String priorityTitle = resources.getString(R.string.title_priority);
+        String priorityValue = resources.getStringArray(R.array.priorities)[priority];
+        String result = String.format("%s %s", priorityTitle, priorityValue);
+        chip.setText(result);
+    }
 }

@@ -14,11 +14,6 @@
             name="viewModel"
             type="ir.timurid.smarttask.viewModel.AddTodoVM" />
 
-        <variable
-            name="prioritiesRes"
-            type="String[]" />
-
-
         <import type="ir.timurid.smarttask.utils.ColorUtils" />
 
 
@@ -34,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- todo: disable create button if todo title is empty -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/titleLayout"
             android:layout_width="0dp"
@@ -93,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{parent::onPriorityChipClick}"
-                android:text='@{@string/title_priority + " " + prioritiesRes[viewModel.priorityField]}'
+                app:priorityValue="@{viewModel.priorityField}"
                 app:chipBackgroundColor="@color/dayNight_foreground"
                 app:chipIcon="@drawable/ic_priority_low"
                 app:priorityLevel="@{viewModel.priorityField}"

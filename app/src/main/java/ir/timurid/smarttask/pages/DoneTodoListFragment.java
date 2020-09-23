@@ -10,6 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.transition.MaterialFadeThrough;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -35,7 +37,12 @@ public class DoneTodoListFragment extends Fragment implements TodoAdapter.OnTodo
     @TodoListModule.DoneTodoListAdapter
     TodoAdapter todoAdapter;
 
-
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setEnterTransition(new MaterialFadeThrough());
+        setExitTransition(new MaterialFadeThrough());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -48,10 +55,15 @@ public class DoneTodoListFragment extends Fragment implements TodoAdapter.OnTodo
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(todoAdapter);
 
-        viewModel.getDoneTodoList().observe(getViewLifecycleOwner(),todoAdapter::submitList);
+        binding.setIsListEmpty(true);
+        binding.setEmptyAnimRes(R.raw.done_todolist_anim);
+
+        viewModel.getDoneTodoList().observe(getViewLifecycleOwner(),todos -> {
+            todoAdapter.submitList(todos);
+            binding.setIsListEmpty(todos.isEmpty());
+        });
     }
 
     @Override
