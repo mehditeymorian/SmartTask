@@ -2,7 +2,7 @@
 <img src="https://github.com/mehditeymorian/SmartTask/blob/master/Images/cafebazaar-header.png" >
 </div>
 
-# SmartTask
+# SmartTask | [CafeBazaar Page](https://cafebazaar.ir/app/ir.timurid.smarttask)
 Android Sample Project
 
 ### Project Specifications
